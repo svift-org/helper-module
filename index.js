@@ -58,5 +58,5 @@ SVIFT.helper.interpolate = function ( a ) {
     }
   };
 
-  return ip;
+  return ip.i;
 };
