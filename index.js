@@ -50,9 +50,9 @@ SVIFT.helper.interpolate = function ( a ) {
     for(var i = 1; i<ip.def.length; i++){
       if(t>=ip.def[i].start && t<=(ip.def[i].start+ip.def[i].duration)){
         if(ip.def[i].ease){
-          return ip.interpolate[i](ip.def[i].ease((t-start)/duration));
+          return ip.interpolate[i-1](ip.def[i].ease((t-ip.def[i].start)/ip.def[i].duration));
         }else{
-          return ip.interpolate[i]((t-start)/duration);
+          return ip.interpolate[i-1]((t-ip.def[i].start)/ip.def[i].duration);
         }
       }
     }
