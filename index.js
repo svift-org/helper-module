@@ -60,3 +60,38 @@ SVIFT.helper.interpolate = function ( a ) {
 
   return ip.i;
 };
+
+/*-------------- Some Data Helper Function, this should either be replaced by a library or moved to the data handling part of this framework --------------*/
+
+SVIFT.helper.switchCol = function (data, col1, col2) {
+  data.forEach(function(d){
+    var t = d[col1];
+    d[col1] = d[col2];
+    d[col2] = t;
+  });
+  return data;
+};
+
+SVIFT.helper.transpose = function (data) {
+  //extract keys
+  var tData = {};
+  data.forEach(function(d)){
+    for(var key in d){
+      if(!(key in tData)){
+        tData[key] = [];
+      }
+    }
+  })
+  
+  data.forEach(function(d)){
+    for(var key in tData){
+      if(!(key in d)){
+        tData[key].push(null)
+      }else{
+        tData[key].push(d[key])
+      }
+    }
+  })
+
+  return tData;
+};
