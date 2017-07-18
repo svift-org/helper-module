@@ -75,7 +75,7 @@ SVIFT.helper.switchCol = function (data, col1, col2) {
 SVIFT.helper.transpose = function (data) {
   //extract keys
   var tData = {};
-  data.forEach(function(d)){
+  data.forEach(function(d){
     for(var key in d){
       if(!(key in tData)){
         tData[key] = [];
@@ -83,7 +83,7 @@ SVIFT.helper.transpose = function (data) {
     }
   })
   
-  data.forEach(function(d)){
+  data.forEach(function(d){
     for(var key in tData){
       if(!(key in d)){
         tData[key].push(null)
