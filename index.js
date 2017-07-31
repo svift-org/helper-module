@@ -7,8 +7,8 @@ SVIFT.helper = {};
  * @param {Integer} `timeout` Timeout between calls (optional)
  *
  */
-SVIFT.helper.debouncer = function ( func , timeout ) {
-  var timeoutID , timeout = timeout || 200;
+SVIFT.helper.debouncer = function ( func , _timeout ) {
+  var timeoutID , timeout = _timeout || 200;
   return function () {
     var scope = this , args = arguments;
     clearTimeout( timeoutID );
@@ -27,20 +27,20 @@ SVIFT.helper.debouncer = function ( func , timeout ) {
 
 SVIFT.helper.interpolate = function ( a ) {
 
-  var ip = {};
+  var ip = {}, i;
 
   ip.def = a;
   ip.interpolate = [];
   ip.duration = 0;
 
-  for(var i = 1; i<ip.def.length; i++){
+  for(i = 1; i<ip.def.length; i++){
     if(!('ease' in ip.def[i])){ip.def[i].ease = false;}
     ip.interpolate.push(d3.interpolate(ip.def[i-1].value, ip.def[i].value));
     ip.duration += ip.def[i].duration;
   }
 
   var t_duration = 0;
-  for(var i = 1; i<ip.def.length; i++){
+  for(i = 1; i<ip.def.length; i++){
     ip.def[i].duration = ip.def[i].duration / ip.duration;
     ip.def[i].start = t_duration;
     t_duration += ip.def[i].duration;
@@ -81,17 +81,17 @@ SVIFT.helper.transpose = function (data) {
         tData[key] = [];
       }
     }
-  })
+  });
   
   data.forEach(function(d){
     for(var key in tData){
       if(!(key in d)){
-        tData[key].push(null)
+        tData[key].push(null);
       }else{
-        tData[key].push(d[key])
+        tData[key].push(d[key]);
       }
     }
-  })
+  });
 
   return tData;
 };
