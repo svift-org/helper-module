@@ -95,3 +95,42 @@ SVIFT.helper.transpose = function (data) {
 
   return tData;
 };
+
+/*
+ * D3 standard axis elements are not really great for being exported to adobe illustrator and sketch app, this modifiers optimise the axis
+ * 
+ * @param {d3-selection} `axis` A d3 axis selection object
+ *
+ */
+
+SVIFT.helper.cleanAxis = function ( axis ) {
+  var axis_groups;
+  if(axis.attr('text-anchor')){
+    axis_groups = axis;
+  }else{
+    axis_groups = axis.select('g[text-anchor="*"]');
+  }
+
+  var anchor = axis_groups.attr('text-anchor');
+    axis_groups.selectAll('text').attr('text-anchor',anchor);
+
+  var size = axis_groups.attr('font-size');
+
+  axis_groups.selectAll('text').each(function(d){
+    var obj = d3.select(this);
+    ['y','x'].forEach(function(attr){
+      var val = obj.attr('d'+attr);
+      if(val){
+        if(val.indexOf('em')>=0){
+          val = parseFloat(val.substr(0,val.length-2))*size;
+        }
+        obj.attr('d'+attr, 0);
+        var tval = obj.attr(attr);
+        if(tval){
+          val += parseFloat(tval);
+        }
+        obj.attr(attr, val);
+      }
+    })
+  });
+};
